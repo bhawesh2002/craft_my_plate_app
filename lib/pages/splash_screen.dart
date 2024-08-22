@@ -45,8 +45,9 @@ class _SplashScreenState extends State<SplashScreen>
     topPosition = Tween<double>(begin: UiSizes().h50, end: UiSizes().h28)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
     _animationController.forward().whenComplete(() {
-      Future.delayed(
-          const Duration(seconds: 1), () => Get.offAllNamed(AppRoutes.home));
+      Future.delayed(const Duration(seconds: 1), () {
+        Get.offNamed(AppRoutes.onboarding);
+      });
     });
     super.initState();
   }
