@@ -1,10 +1,10 @@
 name: craft_my_plate_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=3.4.1 <4.0.0'
+  sdk: ">=3.4.1 <4.0.0"
 
 dependencies:
   firebase_auth: ^4.16.0
@@ -23,3 +23,24 @@ flutter:
 
   assets:
     - lib/assets/images/
+
+  fonts:
+    - family: "Lexend"
+      fonts:
+        - asset: lib/assets/fonts/Lexend-Thin.ttf
+          weight: 100
+        - asset: lib/assets/fonts/Lexend-ExtraLight.ttf
+          weight: 200
+        - asset: lib/assets/fonts/Lexend-Light.ttf
+          weight: 300
+        - asset: lib/assets/fonts/Lexend-Regular.ttf
+          weight: 400
+        - asset: lib/assets/fonts/Lexend-Medium.ttf
+          weight: 500
+        - asset: lib/assets/fonts/Lexend-SemiBold.ttf
+          weight: 600
+        - asset: lib/assets/fonts/Lexend-Bold.ttf
+          weight: 700
+        - asset: lib/assets/fonts/Lexend-ExtraBold.ttf
+          weight: 800
+  
