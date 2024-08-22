@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MainApp());
 }
 
@@ -26,7 +27,6 @@ class MainApp extends StatelessWidget {
       ),
       initialRoute: AppRoutes.splash,
       getPages: AppPages.pages,
-      home: const Scaffold(body: Center()),
     );
   }
 }
