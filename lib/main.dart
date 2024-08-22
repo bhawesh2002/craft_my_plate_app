@@ -1,3 +1,5 @@
+import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,12 +11,17 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    // Initialize the UiSizes class
+    UiSizes().init(context);
+    return MaterialApp(
+      theme: ThemeData(
+        colorScheme: const ColorScheme.light(
+          primary: AppColors.primary,
+          secondary: AppColors.secondary,
         ),
+        fontFamily: 'Lexend',
       ),
+      home: const Scaffold(body: Center()),
     );
   }
 }
