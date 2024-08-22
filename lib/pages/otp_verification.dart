@@ -1,8 +1,10 @@
+import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:get/get.dart';
 
 class OtpVerification extends StatefulWidget {
   const OtpVerification({super.key});
@@ -79,7 +81,9 @@ class _OtpVerificationState extends State<OtpVerification> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.toNamed(AppRoutes.infoCollection);
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.buttonPrimaryColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
