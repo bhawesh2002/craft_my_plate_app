@@ -9,6 +9,10 @@ class AppImages {
   static const String _onboarding3 = '$_imgFolder/onboarding_3_img.svg';
   static const String _elephantSVG = '$_imgFolder/elephant_cook.svg';
   static const String _cookingSVG = '$_imgFolder/cooking.svg';
+  static const String _mealBox = '$_imgFolder/meal_box.png';
+  static const String _mealBoxSmall = '$_imgFolder/meal_box_small.png';
+  static const String _mealBoxLarge = '$_imgFolder/meal_box_large.png';
+  static const String _biryani = '$_imgFolder/biryani.png';
 
   static String get logoSVG => _logoSVG;
   static String get appleSVG => _appleSVG;
@@ -19,4 +23,8 @@ class AppImages {
   static String get onboarding3 => _onboarding3;
   static String get elephantSVG => _elephantSVG;
   static String get cookingSVG => _cookingSVG;
+  static String get mealBox => _mealBox;
+  static String get mealBoxSmall => _mealBoxSmall;
+  static String get mealBoxLarge => _mealBoxLarge;
+  static String get biryani => _biryani;
 }
