@@ -120,9 +120,11 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () async {
                       _phoneFocusNode.unfocus();
                       await _authStateController
-                          .sendOtp("+91${_phoneController.text.trim()}");
-                      Get.toNamed(AppRoutes.verification,
-                          arguments: _phoneController.text.trim());
+                          .sendOtp("+91${_phoneController.text.trim()}")
+                          .then((_) {
+                        Get.toNamed(AppRoutes.verification,
+                            arguments: _phoneController.text.trim());
+                      });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonPrimaryColor,
