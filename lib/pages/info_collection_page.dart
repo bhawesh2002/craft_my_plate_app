@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
   final TextEditingController _emailController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
 
+  final AuthStateController _authStateController =
+      Get.find<AuthStateController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -91,7 +94,11 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                Get.toNamed(AppRoutes.home);
+                _authStateController
+                    .updateProfile(_nameController.text, _emailController.text)
+                    .then((_) {
+                  Get.offAllNamed(AppRoutes.home);
+                });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.buttonPrimaryColor,
