@@ -11,4 +11,11 @@ class AppColors {
   static const Color lightTextColor = Color(0xff7B7B7B);
   static const Color textColorFaded = Color(0xff545454);
   static const Color verifiedColor = Color(0xff5DCB54);
+  static const Color promoCodeColor = Color(0xffF6D798);
+
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [Color(0xff7915DE), Color(0xff260C40)],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }

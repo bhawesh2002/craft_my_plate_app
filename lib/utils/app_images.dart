@@ -7,6 +7,8 @@ class AppImages {
   static const String _onboarding1 = '$_imgFolder/onboarding_1_img.svg';
   static const String _onboarding2 = '$_imgFolder/onboarding_2_img.svg';
   static const String _onboarding3 = '$_imgFolder/onboarding_3_img.svg';
+  static const String _elephantSVG = '$_imgFolder/elephant_cook.svg';
+  static const String _cookingSVG = '$_imgFolder/cooking.svg';
 
   static String get logoSVG => _logoSVG;
   static String get appleSVG => _appleSVG;
@@ -15,4 +17,6 @@ class AppImages {
   static String get onboarding1 => _onboarding1;
   static String get onboarding2 => _onboarding2;
   static String get onboarding3 => _onboarding3;
+  static String get elephantSVG => _elephantSVG;
+  static String get cookingSVG => _cookingSVG;
 }
