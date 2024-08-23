@@ -77,8 +77,15 @@ class _OtpVerificationState extends State<OtpVerification> {
               disabledBorderColor: AppColors.textFieldBorderColor,
               textStyle: const TextStyle(fontSize: 16),
               onSubmit: (value) async {
-                _authStateController.verifyOtp(
-                    _authStateController.verificationIdStr.value, value);
+                await _authStateController
+                    .verifyOtp(
+                        _authStateController.verificationIdStr.value, value)
+                    .then((_) {
+                  _authStateController.isVerified.value == true
+                      ? Get.toNamed(AppRoutes.infoCollection)
+                      : Get.snackbar("Error", "Invalid OTP. Please try again.",
+                          backgroundColor: Colors.red, colorText: Colors.white);
+                });
               },
             ),
             const SizedBox(
