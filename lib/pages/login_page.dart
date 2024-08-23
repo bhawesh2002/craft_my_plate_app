@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: SvgPicture.asset(AppImages.logoSVG)),
                       const SizedBox(height: 24),
                       const Text(
-                        "India’s 1st Dynamic Pricing Food Catering App",
+                        "India’s 1st Dynamic Pricing Food\nCatering App",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,
