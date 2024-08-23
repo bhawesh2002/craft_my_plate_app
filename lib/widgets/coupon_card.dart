@@ -13,8 +13,17 @@ class CouponCard extends StatelessWidget {
       // width: UiSizes().w80,
       margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
+        // shape: BoxS,
         borderRadius: BorderRadius.circular(20),
         gradient: AppColors.primaryGradient,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 4,
+            offset: const Offset(0, 1),
+            spreadRadius: 0,
+          )
+        ],
       ),
       clipBehavior: Clip.antiAlias,
       child: LayoutBuilder(
