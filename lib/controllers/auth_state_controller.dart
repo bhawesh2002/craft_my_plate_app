@@ -7,7 +7,7 @@ class AuthStateController extends GetxController {
   RxBool isLoggedIn = false.obs;
   RxBool isVerified = false.obs;
   RxString verificationIdStr = "".obs;
-  RxBool otpRequested = false.obs;
+  RxBool otpSent = false.obs;
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -21,10 +21,10 @@ class AuthStateController extends GetxController {
     _auth.authStateChanges().listen((User? user) {
       if (user == null) {
         isLoggedIn.value = false;
-        debugPrint("User is currently signed out!");
+        debugPrint("Login Status: User is currently signed out!");
       } else {
         isLoggedIn.value = true;
-        debugPrint("User is signed in!");
+        debugPrint("Login Status: User is signed in!");
       }
     });
   }
@@ -36,24 +36,20 @@ class AuthStateController extends GetxController {
         timeout: const Duration(seconds: 60),
         verificationCompleted: (PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
-          debugPrint("User signed in!");
           isVerified.value = true;
-          otpRequested.value = false;
-          Get.offAllNamed(AppRoutes.home);
+          debugPrint("sendOtp(): User signed in!");
         },
         verificationFailed: (FirebaseAuthException e) {
-          otpRequested.value = false;
-          debugPrint("Error: ${e.message}");
+          isVerified.value = false;
+          debugPrint("sendOtp(): Error: ${e.message}");
         },
         codeSent: (String verificationId, int? resendToken) {
-          debugPrint("Code sent to $phoneNumber");
           verificationIdStr.value = verificationId;
-          otpRequested.value = true;
-          Get.toNamed(AppRoutes.verification, arguments: verificationId);
+          otpSent.value = true;
+          debugPrint("sendOtp():Code sent to $phoneNumber");
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          otpRequested.value = false;
-          debugPrint("Auto retrieval timeout");
+          debugPrint("sendOtp():Auto retrieval timeout");
         },
       );
     } catch (e) {
@@ -68,18 +64,31 @@ class AuthStateController extends GetxController {
         smsCode: otp,
       );
       await _auth.signInWithCredential(credential);
-      debugPrint("User signed in!");
       isVerified.value = true;
-      otpRequested.value = false;
-      Get.offAllNamed(AppRoutes.home);
+      otpSent.value = false;
+      debugPrint("verifyOtp(): User signed in!");
     } catch (e) {
-      debugPrint("Error: $e");
+      debugPrint("sendOtp()Error: $e");
+    }
+  }
+
+  Future<void> updateProfile(String name, String email) async {
+    try {
+      await _auth.currentUser!.updateDisplayName(name);
+      await _auth.currentUser!.updateEmail(email);
+      debugPrint("Profile updated!");
+    } catch (e) {
+      debugPrint("updateProfile()Error: $e");
     }
   }
 
   Future<void> signOut() async {
-    await _auth.signOut();
-    debugPrint("User signed out!");
-    Get.offAllNamed(AppRoutes.login);
+    try {
+      await _auth.signOut();
+      debugPrint("User signed out!");
+      Get.offAllNamed(AppRoutes.login);
+    } catch (e) {
+      debugPrint("signOut()Error: $e");
+    }
   }
 }
