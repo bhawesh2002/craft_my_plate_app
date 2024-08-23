@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
@@ -14,6 +15,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final AuthStateController _authStateController =
+      Get.put(AuthStateController());
+
   final TextEditingController _phoneController = TextEditingController();
   final FocusNode _phoneFocusNode = FocusNode();
   @override
@@ -113,9 +117,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   const SizedBox(height: 24),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       _phoneFocusNode.unfocus();
-                      Get.toNamed(AppRoutes.verification);
+                      await _authStateController
+                          .sendOtp("+91${_phoneController.text.trim()}");
+                      Get.toNamed(AppRoutes.verification,
+                          arguments: _phoneController.text.trim());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonPrimaryColor,
