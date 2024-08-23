@@ -18,4 +18,45 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  static const LinearGradient purpleGradient = LinearGradient(
+      colors: [Color(0xffD4C1FC), Color(0xff957EC7)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: [0.2, 1]);
+
+  static const LinearGradient pinkGradient = LinearGradient(
+      colors: [Color(0xffFCC1DD), Color(0xffF560A7)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: [0.2, 1]);
+
+  static const LinearGradient yellowGradient = LinearGradient(
+      colors: [Color(0xffFCEFC1), Color(0xffF4B53A)],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: [0.2, 1]);
+
+  static const LinearGradient labelGradient = LinearGradient(
+    colors: [Color(0xff7915DE), Color(0xff260C40)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  static const LinearGradient labelGradientReverse = LinearGradient(
+    colors: [Color(0xff260C40), Color(0xff7915DE)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
+  );
+
+  static const LinearGradient multiPurpleGradienr = LinearGradient(
+      colors: [
+        Color(0xff9765CA),
+        Color(0xff7D3EBC),
+        Color(0xff7D3EBC),
+        Color(0xff6318AF)
+      ],
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      stops: [0.1, 0.5, 0.7, 0.9]);
 }
