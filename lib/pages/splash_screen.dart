@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
@@ -18,6 +19,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  final AuthStateController _authStateController =
+      Get.put(AuthStateController());
   late AnimationController _animationController;
 
   late final Animation<double> scale;
@@ -46,7 +49,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward().whenComplete(() {
       Future.delayed(const Duration(seconds: 1), () {
-        Get.offNamed(AppRoutes.onboarding);
+        _authStateController.isLoggedIn.value
+            ? Get.offNamed(AppRoutes.home)
+            : Get.offNamed(AppRoutes.onboarding);
       });
     });
     super.initState();
