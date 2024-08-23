@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ class OtpVerification extends StatefulWidget {
 }
 
 class _OtpVerificationState extends State<OtpVerification> {
+  // final TextEditingController _otpController = TextEditingController();
+  final AuthStateController _authStateController =
+      Get.find<AuthStateController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,18 +49,18 @@ class _OtpVerificationState extends State<OtpVerification> {
               style: TextStyle(
                   fontSize: 16, color: AppColors.textColorFaded, height: 2.4),
             ),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "+91-XXXXXX6794",
-                  style: TextStyle(
+                  "+91-${(Get.arguments as String).replaceRange(0, 6, "XXXXXX")}",
+                  style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500, height: 2.4),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 4,
                 ),
-                Icon(
+                const Icon(
                   Icons.verified_rounded,
                   color: AppColors.verifiedColor,
                 )
@@ -66,12 +70,16 @@ class _OtpVerificationState extends State<OtpVerification> {
               height: 24,
             ),
             OtpTextField(
-              numberOfFields: 4,
+              numberOfFields: 6,
               borderColor: AppColors.textFieldBorderColor,
               fieldWidth: 50,
               focusedBorderColor: AppColors.primary,
               disabledBorderColor: AppColors.textFieldBorderColor,
               textStyle: const TextStyle(fontSize: 16),
+              onSubmit: (value) async {
+                _authStateController.verifyOtp(
+                    _authStateController.verificationIdStr.value, value);
+              },
             ),
             const SizedBox(
               height: 24,
