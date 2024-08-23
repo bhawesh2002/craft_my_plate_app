@@ -29,6 +29,8 @@ flutter:
 
   assets:
     - lib/assets/images/
+    - lib/assets/icons/
+
 
   fonts:
     - family: "Lexend"
