@@ -17,6 +17,7 @@ dependencies:
   get: ^4.6.6
   google_fonts: ^6.2.1
   is_first_run: ^1.0.0
+  lottie: ^3.1.2
   shared_preferences: ^2.3.2
   smooth_page_indicator: ^1.2.0+3
 
@@ -31,6 +32,7 @@ flutter:
   assets:
     - lib/assets/images/
     - lib/assets/icons/
+    - lib/assets/lottie/
 
 
   fonts:
