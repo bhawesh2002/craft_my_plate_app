@@ -33,17 +33,17 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(seconds: 3),
     );
+    rotate = Tween<double>(begin: 7.01, end: 30).animate(CurvedAnimation(
+        parent: _animationController, curve: Curves.easeInBack));
     scale = Tween<double>(begin: 4, end: 7)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
     logoScale = Tween<double>(begin: 1, end: 1.5)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
-    rotate = Tween<double>(begin: 7.01, end: 30)
-        .animate(CurvedAnimation(parent: _animationController, curve: curve));
     opacity = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.easeInOutCubic));
-
     topPosition = Tween<double>(begin: UiSizes().h50, end: UiSizes().h28)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
+
     _animationController.forward().whenComplete(() {
       Future.delayed(const Duration(seconds: 1), () {
         Get.offNamed(AppRoutes.onboarding);
