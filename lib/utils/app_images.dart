@@ -1,5 +1,6 @@
 class AppImages {
   static const String _imgFolder = 'lib/assets/images';
+  static const String _lottieFolder = 'lib/assets/lottie';
   static const String _logoSVG = '$_imgFolder/app_logo.svg';
   static const String _appleSVG = '$_imgFolder/apple.svg';
   static const String _deliveryBox = '$_imgFolder/delivery_box.png';
@@ -7,6 +8,9 @@ class AppImages {
   static const String _onboarding1 = '$_imgFolder/onboarding_1_img.svg';
   static const String _onboarding2 = '$_imgFolder/onboarding_2_img.svg';
   static const String _onboarding3 = '$_imgFolder/onboarding_3_img.svg';
+  static const String _onboarding1Lottie = '$_lottieFolder/onboarding_1.json';
+  static const String _onboarding2Lottie = '$_lottieFolder/onboarding_2.json';
+  static const String _onboarding3Lottie = '$_lottieFolder/onboarding_3.json';
   static const String _elephantSVG = '$_imgFolder/elephant_cook.svg';
   static const String _cookingSVG = '$_imgFolder/cooking.svg';
   static const String _mealBox = '$_imgFolder/meal_box.png';
@@ -22,6 +26,10 @@ class AppImages {
   static String get onboarding1 => _onboarding1;
   static String get onboarding2 => _onboarding2;
   static String get onboarding3 => _onboarding3;
+  static String get onboarding1Lottie => _onboarding1Lottie;
+  static String get onboarding2Lottie => _onboarding2Lottie;
+  static String get onboarding3Lottie => _onboarding3Lottie;
+
   static String get elephantSVG => _elephantSVG;
   static String get cookingSVG => _cookingSVG;
   static String get mealBox => _mealBox;
