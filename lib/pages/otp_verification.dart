@@ -1,6 +1,8 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
@@ -16,6 +18,7 @@ class _OtpVerificationState extends State<OtpVerification> {
   // final TextEditingController _otpController = TextEditingController();
   final AuthStateController _authStateController =
       Get.find<AuthStateController>();
+  bool otpVerified = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +56,9 @@ class _OtpVerificationState extends State<OtpVerification> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "+91-${(Get.arguments as String).replaceRange(0, 6, "XXXXXX")}",
+                  Get.arguments != null
+                      ? "+91-${((Get.arguments as String).replaceRange(0, 6, "XXXXXX"))}"
+                      : "+91-XXXXXXXXXX",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500, height: 2.4),
                 ),
@@ -76,15 +81,34 @@ class _OtpVerificationState extends State<OtpVerification> {
               focusedBorderColor: AppColors.primary,
               disabledBorderColor: AppColors.textFieldBorderColor,
               textStyle: const TextStyle(fontSize: 16),
+              onCodeChanged: (value) {
+                if (value.length == 6) {
+                  setState(() {
+                    otpVerified = true;
+                  });
+                } else {
+                  setState(() {
+                    otpVerified = false;
+                  });
+                }
+              },
               onSubmit: (value) async {
-                await _authStateController
-                    .verifyOtp(
-                        _authStateController.verificationIdStr.value, value)
-                    .then((_) {
+                await _authStateController.verifyOtp(value).then((_) {
                   _authStateController.isVerified.value == true
-                      ? Get.toNamed(AppRoutes.infoCollection)
-                      : Get.snackbar("Error", "Invalid OTP. Please try again.",
-                          backgroundColor: Colors.red, colorText: Colors.white);
+                      ? {
+                          setState(() {
+                            otpVerified = true;
+                          }),
+                          infoSnackBar(
+                            title: "Success",
+                            message:
+                                "OTP Verified Successfully. You may continue.",
+                          )
+                        }
+                      : errorSnackBar(
+                          title: "Error",
+                          message: "Invalid OTP. Please try again.",
+                        );
                 });
               },
             ),
@@ -94,9 +118,20 @@ class _OtpVerificationState extends State<OtpVerification> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 36.0),
               child: ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(AppRoutes.infoCollection);
-                },
+                onPressed: otpVerified == true
+                    ? () {
+                        if (_authStateController.isNewUser.value) {
+                          Get.toNamed(AppRoutes.infoCollection);
+                        } else if (FirebaseAuth
+                                    .instance.currentUser?.displayName ==
+                                null ||
+                            FirebaseAuth.instance.currentUser?.email == null) {
+                          Get.toNamed(AppRoutes.infoCollection);
+                        } else {
+                          Get.offAllNamed(AppRoutes.home);
+                        }
+                      }
+                    : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: AppColors.buttonPrimaryColor,
                   padding: const EdgeInsets.symmetric(vertical: 16),
