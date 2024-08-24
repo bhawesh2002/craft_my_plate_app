@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               const SizedBox(height: 24),
               Text(
-                'Hi, ${_auth.currentUser!.displayName}',
+                'Hi, ${_auth.currentUser!.displayName}!',
                 style: const TextStyle(fontSize: 22, color: AppColors.primary),
               ),
               const SizedBox(height: 12),
