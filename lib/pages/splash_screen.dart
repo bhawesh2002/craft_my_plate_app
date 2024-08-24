@@ -10,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:math' as math;
 
+import 'package:is_first_run/is_first_run.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -49,9 +51,18 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward().whenComplete(() {
       Future.delayed(const Duration(seconds: 1), () {
-        _authStateController.isLoggedIn.value
-            ? Get.offNamed(AppRoutes.home)
-            : Get.offNamed(AppRoutes.onboarding);
+        // Check if the app is running for the first time
+        IsFirstRun.isFirstRun().then((isFirstRun) {
+          if (isFirstRun) {
+            // If the app is running for the first time, navigate to the onboarding screen
+            Get.offNamed(AppRoutes.onboarding);
+          } else {
+            // If the app is not running for the first time, navigate to the login screen if the user is not logged in
+            _authStateController.isLoggedIn.value
+                ? Get.offNamed(AppRoutes.home)
+                : Get.offNamed(AppRoutes.login);
+          }
+        });
       });
     });
     super.initState();
@@ -91,23 +102,6 @@ class _SplashScreenState extends State<SplashScreen>
                     child: SvgPicture.asset(
                       AppImages.logoSVG,
                     ),
-                  ),
-                ),
-              ),
-              Positioned.fill(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Transform.scale(
-                    scale: 1.5,
-                    alignment: Alignment.bottomCenter,
-                    child: opacity.value != 0.9
-                        ? Opacity(
-                            opacity: 1 - opacity.value,
-                            child: SvgPicture.asset(
-                              AppImages.logoSVG,
-                            ),
-                          )
-                        : null,
                   ),
                 ),
               ),
