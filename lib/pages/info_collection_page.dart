@@ -1,6 +1,7 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,6 +20,15 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
 
   final AuthStateController _authStateController =
       Get.find<AuthStateController>();
+
+  @override
+  void initState() {
+    FirebaseAuth.instance.currentUser?.email != null
+        ? _emailController.text = FirebaseAuth.instance.currentUser!.email!
+        : null;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,6 +88,7 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
                 controller: _emailController,
                 focusNode: _emailFocusNode,
                 keyboardType: TextInputType.emailAddress,
+                enabled: FirebaseAuth.instance.currentUser?.email == null,
                 decoration: const InputDecoration(
                   hintText: "Email ID*",
                   hintStyle:
@@ -97,8 +108,12 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
                 _authStateController
                     .updateProfile(_nameController.text, _emailController.text)
                     .then((_) {
-                  Get.offAllNamed(AppRoutes.home);
+                  if (FirebaseAuth.instance.currentUser?.displayName != null &&
+                      FirebaseAuth.instance.currentUser?.email != null) {
+                    Get.offAllNamed(AppRoutes.home);
+                  }
                 });
+                // _authStateController.signOut();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.buttonPrimaryColor,
