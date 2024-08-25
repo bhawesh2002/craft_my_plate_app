@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   SvgPicture.asset(
                                     AppImages.logoSVG,
-                                    width: 200,
+                                    width: UiSizes().w45,
                                   ),
                                   SizedBox(height: UiSizes().h4),
                                 ],
@@ -270,7 +270,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 20),
                   // Phone or Email Field based on authType
                   AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
+                    duration: const Duration(milliseconds: 500),
                     transitionBuilder: (child, animation) {
                       return FadeTransition(
                         opacity: animation,
