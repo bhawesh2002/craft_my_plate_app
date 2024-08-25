@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
@@ -79,7 +77,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 32),
               SizedBox(
-                height: UiSizes().h16,
+                height: UiSizes().h18,
                 child: PageView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 2,
