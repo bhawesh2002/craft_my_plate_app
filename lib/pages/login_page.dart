@@ -46,9 +46,9 @@ class _LoginPageState extends State<LoginPage> {
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
         child: Column(
           children: [
+            // App Logo
             Expanded(
               child: Container(
-                // height: UiSizes().h70,
                 decoration: const BoxDecoration(
                   color: AppColors.primary,
                   borderRadius: BorderRadius.only(
@@ -61,6 +61,8 @@ class _LoginPageState extends State<LoginPage> {
             Row(
               mainAxisSize: MainAxisSize.min,
               children: [
+                // Phone Button
+                //Clicking on this button will change the authType to phone
                 ElevatedButton(
                   onPressed: () {
                     if (authType != AuthType.phone) {
@@ -93,6 +95,8 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   width: 16,
                 ),
+                // Email Button
+                //Clicking on this button will change the authType to email
                 ElevatedButton(
                   onPressed: () {
                     if (authType != AuthType.email) {
@@ -133,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
                   const SizedBox(height: 20),
+                  // Phone or Email Field based on authType
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
                     transitionBuilder: (child, animation) {
@@ -155,6 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                             authType: AuthType.email,
                           ),
                   ),
+                  // Password Field only visible when email is selected
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
                     transitionBuilder: (child, animation) {
@@ -182,6 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                   const SizedBox(height: 24),
+                  // Continue Button
                   ElevatedButton(
                     onPressed: () async {
                       if (authType == AuthType.phone &&
@@ -243,18 +250,27 @@ class _LoginPageState extends State<LoginPage> {
                             .signInWithEmail(_emailController.text.trim(),
                                 _passController.text.trim())
                             .then((_) {
-                          if (_authStateController.isNewUser.value == true) {
-                            Get.toNamed(AppRoutes.infoCollection);
-                          } else if (FirebaseAuth
-                                      .instance.currentUser?.displayName ==
-                                  null ||
-                              FirebaseAuth.instance.currentUser?.email ==
-                                  null) {
-                            debugPrint(
-                                "User is not new and name and email is null");
-                            Get.toNamed(AppRoutes.infoCollection);
-                          } else {
-                            Get.offAllNamed(AppRoutes.home);
+                          //handle redirection only after the user is logged in
+                          if (_authStateController.isLoggedIn.value) {
+                            //If the user is new, redirect to info collection page
+                            if (_authStateController.isNewUser.value == true) {
+                              Get.toNamed(AppRoutes.infoCollection);
+                            }
+                            //If the user is not new and name and email is null, redirect to info collection page
+                            else if (FirebaseAuth
+                                        .instance.currentUser?.displayName ==
+                                    null ||
+                                FirebaseAuth.instance.currentUser?.email ==
+                                    null) {
+                              debugPrint(
+                                  "User is not new and name and email is null");
+                              Get.toNamed(AppRoutes.infoCollection);
+                            }
+                            //if above conditions are met, redirect to home page
+                            else {
+                              Get.offAllNamed(AppRoutes.home);
+                            }
+                            return;
                           }
                         });
                         return;
@@ -281,6 +297,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(
                     height: 24,
                   ),
+                  //By continuing, I accept Terms of Conditions and Privacy Policy
                   Align(
                     alignment: Alignment.center,
                     child: SizedBox(
