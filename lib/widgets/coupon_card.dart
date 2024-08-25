@@ -31,7 +31,7 @@ class CouponCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(
                       // width: constraints.maxWidth * 0.6,
@@ -44,7 +44,9 @@ class CouponCard extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Expanded(child: SizedBox()),
+                    SizedBox(
+                      height: constraints.maxHeight * 0.05,
+                    ),
                     DottedBorder(
                       strokeWidth: 2,
                       color: const Color(0xff7B7B7B),
