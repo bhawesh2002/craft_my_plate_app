@@ -10,10 +10,7 @@ class CouponCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // width: UiSizes().w80,
-      margin: const EdgeInsets.only(right: 16),
       decoration: BoxDecoration(
-        // shape: BoxS,
         borderRadius: BorderRadius.circular(20),
         gradient: AppColors.primaryGradient,
         boxShadow: [
@@ -28,11 +25,11 @@ class CouponCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          return Stack(
+          return Row(
             children: [
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 20, horizontal: 18),
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -72,15 +69,23 @@ class CouponCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Positioned.fill(
-                top: 20,
-                // right: 10,
-                child: Align(
-                  alignment: Alignment.centerRight,
-                  child: Transform.scale(
-                    scale: 1.2,
-                    child: SvgPicture.asset(AppImages.cookingSVG),
-                  ),
+              Expanded(
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      top: constraints.maxHeight * 0.15,
+                      right: constraints.maxWidth * 0.05,
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Transform.scale(
+                          scale: 1.2,
+                          child: SvgPicture.asset(
+                            AppImages.cookingSVG,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
