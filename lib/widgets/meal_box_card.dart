@@ -36,7 +36,7 @@ class MealBoxCard extends StatelessWidget {
         margin: const EdgeInsets.all(6),
         clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(32),
+          borderRadius: BorderRadius.circular(24),
           gradient: gradient,
         ),
         child: LayoutBuilder(builder: (context, constraints) {
