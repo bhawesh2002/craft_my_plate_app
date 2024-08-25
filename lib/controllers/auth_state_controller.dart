@@ -177,12 +177,14 @@ class AuthStateController extends GetxController {
     }
   }
 
-  Future<void> signOut() async {
+  Future<void> signOut({bool redirectToLogin = false}) async {
     try {
       await _auth.signOut();
       isLoggedIn.value = false;
       debugPrint("signOut(): User signed out!");
-      Get.offAllNamed(AppRoutes.login);
+      if (redirectToLogin) {
+        Get.offAllNamed(AppRoutes.login);
+      }
     } catch (e) {
       debugPrint("signOut() Error: $e");
     }
