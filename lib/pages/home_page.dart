@@ -25,17 +25,29 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     List<MealBoxCard> mealBoxCards = [
       MealBoxCard(
-          imgPath: AppImages.mealBoxSmall,
-          count: 3,
-          gradient: AppColors.pinkGradient),
+        imgPath: AppImages.mealBoxSmall,
+        count: 3,
+        gradient: AppColors.pinkGradient,
+        topPos: -0.2,
+        leftPos: 0.15,
+        scale: 1.2,
+      ),
       MealBoxCard(
-          imgPath: AppImages.mealBox,
-          count: 4,
-          gradient: AppColors.purpleGradient),
+        imgPath: AppImages.mealBox,
+        count: 4,
+        gradient: AppColors.purpleGradient,
+        topPos: -0.12,
+        leftPos: 0.2,
+        scale: 1.2,
+      ),
       MealBoxCard(
-          imgPath: AppImages.mealBoxLarge,
-          count: 8,
-          gradient: AppColors.yellowGradient),
+        imgPath: AppImages.mealBoxLarge,
+        count: 8,
+        gradient: AppColors.yellowGradient,
+        topPos: -0.15,
+        leftPos: 0.16,
+        scale: 1.2,
+      ),
     ];
     return Scaffold(
       body: Padding(
@@ -94,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     const CraftCardLong(),
-                    const SizedBox(height: 14),
+                    const SizedBox(height: 16),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
