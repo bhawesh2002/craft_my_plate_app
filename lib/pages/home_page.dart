@@ -93,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     const CraftCardLong(),
-                    const SizedBox(height: 12),
+                    const SizedBox(height: 14),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
