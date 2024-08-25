@@ -1,4 +1,5 @@
 import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:craft_my_plate_app/utils/app_icons.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -74,8 +75,7 @@ class MenuCardLarge extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          SvgPicture.asset(
-                              'lib/assets/icons/veg_indicator.svg'),
+                          SvgPicture.asset(AppIcons.vegIndicator),
                           const SizedBox(width: 6),
                           const Text(
                             "Panjabi Special Menu",
@@ -175,7 +175,7 @@ class MenuCardLarge extends StatelessWidget {
                           Row(
                             children: [
                               SvgPicture.asset(
-                                'lib/assets/icons/sparkles.svg',
+                                AppIcons.sparkles,
                                 width: 20,
                               ),
                               const SizedBox(
