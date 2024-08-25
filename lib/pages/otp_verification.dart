@@ -1,4 +1,5 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
+import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -81,11 +82,7 @@ class _OtpVerificationState extends State<OtpVerification> {
               disabledBorderColor: AppColors.textFieldBorderColor,
               textStyle: const TextStyle(fontSize: 16),
               onCodeChanged: (value) {
-                if (value.length == 6) {
-                  setState(() {
-                    otpVerified = true;
-                  });
-                } else {
+                if (value.length != 6) {
                   setState(() {
                     otpVerified = false;
                   });
@@ -104,10 +101,13 @@ class _OtpVerificationState extends State<OtpVerification> {
                                 "OTP Verified Successfully. You may continue.",
                           )
                         }
-                      : errorSnackBar(
-                          title: "Error",
-                          message: "Invalid OTP. Please try again.",
-                        );
+                      : {
+                          value = '',
+                          errorSnackBar(
+                            title: "Error",
+                            message: "Invalid OTP. Please try again.",
+                          )
+                        };
                 });
               },
             ),
@@ -120,14 +120,14 @@ class _OtpVerificationState extends State<OtpVerification> {
                 onPressed: otpVerified == true
                     ? () {
                         if (_authStateController.isNewUser.value) {
-                          // Get.toNamed(AppRoutes.infoCollection);
+                          Get.toNamed(AppRoutes.infoCollection);
                         } else if (FirebaseAuth
                                     .instance.currentUser?.displayName ==
                                 null ||
                             FirebaseAuth.instance.currentUser?.email == null) {
-                          // Get.toNamed(AppRoutes.infoCollection);
+                          Get.toNamed(AppRoutes.infoCollection);
                         } else {
-                          // Get.offAllNamed(AppRoutes.home);
+                          Get.offAllNamed(AppRoutes.home);
                         }
                       }
                     : null,
