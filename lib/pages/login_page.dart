@@ -5,7 +5,9 @@ import 'package:craft_my_plate_app/utils/enums.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
 import 'package:craft_my_plate_app/widgets/auth_text_field.dart';
+import 'package:craft_my_plate_app/widgets/auth_type_button.dart';
 import 'package:craft_my_plate_app/widgets/password_text_field.dart';
+import 'package:craft_my_plate_app/widgets/term_n_condition_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,7 +21,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final AuthStateController _authStateController =
-      Get.find<AuthStateController>();
+      Get.put(AuthStateController());
 
   final TextEditingController _phoneController = TextEditingController();
   final FocusNode _phoneFocusNode = FocusNode();
@@ -34,9 +36,112 @@ class _LoginPageState extends State<LoginPage> {
   bool isEmailValid = true;
   bool isPassValid = true;
 
+  bool loginWorkflowTriggered = false;
+
   @override
   void initState() {
     super.initState();
+  }
+
+  // Function to validate phone number
+  bool validatePhoneNumber() {
+    if (_phoneController.text.trim().length != 10) {
+      setState(() {
+        isPhoneValid = false;
+        loginWorkflowTriggered = false;
+      });
+      errorSnackBar(
+          title: "Enter Valid Phone Number",
+          message: "Please enter a valid phone number");
+      return false;
+    } else {
+      setState(() {
+        isPhoneValid = true;
+      });
+      return true;
+    }
+  }
+
+  // Function to validate email
+  bool validateEmail() {
+    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
+        .hasMatch(_emailController.text.trim())) {
+      setState(() {
+        isEmailValid = false;
+        loginWorkflowTriggered = false;
+      });
+      errorSnackBar(
+          title: "Enter Valid Email",
+          message: "Please enter a valid email address");
+      return false;
+    } else {
+      setState(() {
+        isEmailValid = true;
+      });
+      return true;
+    }
+  }
+
+  // Function to validate password
+  bool validatePassword() {
+    if (!RegExp(
+            r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$")
+        .hasMatch(_passController.text.trim())) {
+      setState(() {
+        isPassValid = false;
+        loginWorkflowTriggered = false;
+      });
+      errorSnackBar(
+          title: 'Enter Valid Password',
+          message:
+              'Password must contain at least 6 characters, 1 letter, 1 number and 1 special character');
+      return false;
+    } else {
+      setState(() {
+        isPassValid = true;
+      });
+      return true;
+    }
+  }
+
+  // Function to handle login workflow
+  Future<void> handleLogin() async {
+    // if phone is selected, validate phone number
+    if (authType == AuthType.phone) {
+      if (!validatePhoneNumber()) return;
+      Future.delayed(const Duration(seconds: 2), () {
+        setState(() {
+          loginWorkflowTriggered = false;
+        });
+      });
+      await _authStateController.sendOtp("+91${_phoneController.text.trim()}");
+      setState(() {
+        loginWorkflowTriggered = false;
+      });
+    }
+    // if email is selected, validate email and password
+    else if (authType == AuthType.email) {
+      if (!validateEmail() || !validatePassword()) return;
+      await _authStateController
+          .signInWithEmail(
+              _emailController.text.trim(), _passController.text.trim())
+          .then((_) {
+        if (_authStateController.isLoggedIn.value) {
+          if (_authStateController.isNewUser.value == true) {
+            Get.toNamed(AppRoutes.infoCollection);
+          } else if (FirebaseAuth.instance.currentUser?.displayName == null ||
+              FirebaseAuth.instance.currentUser?.email == null) {
+            debugPrint("User is not new and name and email is null");
+            Get.toNamed(AppRoutes.infoCollection);
+          } else {
+            Get.offAllNamed(AppRoutes.home);
+          }
+        }
+      });
+    }
+    setState(() {
+      loginWorkflowTriggered = false;
+    });
   }
 
   @override
@@ -63,7 +168,10 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 // Phone Button
                 //Clicking on this button will change the authType to phone
-                ElevatedButton(
+                AuthTypeButton(
+                  authType: AuthType.phone,
+                  currentAuthType: authType,
+                  icon: Icons.phone,
                   onPressed: () {
                     if (authType != AuthType.phone) {
                       setState(() {
@@ -72,32 +180,17 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     FocusScope.of(context).unfocus();
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: authType == AuthType.phone
-                        ? AppColors.primary
-                        : Colors.white,
-                    padding: const EdgeInsets.all(16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    elevation: authType == AuthType.phone ? 10 : 0,
-                    shadowColor: authType == AuthType.phone
-                        ? AppColors.primary.withOpacity(0.8)
-                        : Colors.grey.shade600,
-                  ),
-                  child: Icon(
-                    Icons.phone,
-                    color: authType == AuthType.phone
-                        ? Colors.white
-                        : AppColors.primary,
-                  ),
                 ),
+
                 const SizedBox(
                   width: 16,
                 ),
                 // Email Button
                 //Clicking on this button will change the authType to email
-                ElevatedButton(
+                AuthTypeButton(
+                  authType: AuthType.email,
+                  currentAuthType: authType,
+                  icon: Icons.email,
                   onPressed: () {
                     if (authType != AuthType.email) {
                       setState(() {
@@ -106,23 +199,6 @@ class _LoginPageState extends State<LoginPage> {
                     }
                     FocusScope.of(context).unfocus();
                   },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: authType == AuthType.email
-                        ? AppColors.primary
-                        : Colors.white,
-                    padding: const EdgeInsets.all(16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    elevation: authType == AuthType.email ? 10 : 0,
-                    shadowColor: authType == AuthType.email
-                        ? AppColors.primary.withOpacity(0.8)
-                        : Colors.grey.shade600,
-                  ),
-                  child: Icon(Icons.email,
-                      color: authType == AuthType.email
-                          ? Colors.white
-                          : AppColors.primary),
                 ),
               ],
             ),
@@ -191,90 +267,10 @@ class _LoginPageState extends State<LoginPage> {
                   // Continue Button
                   ElevatedButton(
                     onPressed: () async {
-                      if (authType == AuthType.phone &&
-                          _phoneController.text.trim().length != 10) {
-                        setState(() {
-                          isPhoneValid = false;
-                        });
-                        errorSnackBar(
-                            title: "Enter Valid Phone Number",
-                            message: "Please enter a valid phone number");
-
-                        return;
-                      } else {
-                        setState(() {
-                          isPhoneValid = true;
-                        });
-                      }
-                      if (authType == AuthType.email &&
-                          !RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
-                              .hasMatch(_emailController.text.trim())) {
-                        setState(() {
-                          isEmailValid = false;
-                        });
-                        errorSnackBar(
-                            title: "Enter Valid Email",
-                            message: "Please enter a valid email address");
-                        return;
-                      } else {
-                        setState(() {
-                          isEmailValid = true;
-                        });
-                      }
-                      if (authType == AuthType.email &&
-                          !RegExp(r"^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{6,}$")
-                              .hasMatch(_passController.text.trim())) {
-                        setState(() {
-                          isPassValid = false;
-                        });
-                        errorSnackBar(
-                            title: ' Enter Valid Password',
-                            message:
-                                'Password must contain at least 6 characters, 1 letter, 1 number and 1 special character');
-                        return;
-                      } else {
-                        setState(() {
-                          isPassValid = true;
-                        });
-                      }
-
-                      if (authType == AuthType.phone) {
-                        await _authStateController
-                            .sendOtp("+91${_phoneController.text.trim()}");
-                        return;
-                      }
-                      if (authType == AuthType.email &&
-                          isEmailValid &&
-                          isPassValid) {
-                        await _authStateController
-                            .signInWithEmail(_emailController.text.trim(),
-                                _passController.text.trim())
-                            .then((_) {
-                          //handle redirection only after the user is logged in
-                          if (_authStateController.isLoggedIn.value) {
-                            //If the user is new, redirect to info collection page
-                            if (_authStateController.isNewUser.value == true) {
-                              Get.toNamed(AppRoutes.infoCollection);
-                            }
-                            //If the user is not new and name and email is null, redirect to info collection page
-                            else if (FirebaseAuth
-                                        .instance.currentUser?.displayName ==
-                                    null ||
-                                FirebaseAuth.instance.currentUser?.email ==
-                                    null) {
-                              debugPrint(
-                                  "User is not new and name and email is null");
-                              Get.toNamed(AppRoutes.infoCollection);
-                            }
-                            //if above conditions are met, redirect to home page
-                            else {
-                              Get.offAllNamed(AppRoutes.home);
-                            }
-                            return;
-                          }
-                        });
-                        return;
-                      }
+                      setState(() {
+                        loginWorkflowTriggered = true;
+                      });
+                      await handleLogin();
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: AppColors.buttonPrimaryColor,
@@ -283,16 +279,31 @@ class _LoginPageState extends State<LoginPage> {
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
-                    child: const Center(
-                      child: Text(
-                        "Continue",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    child: Center(
+                        child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      transitionBuilder: (child, animation) {
+                        return FadeTransition(
+                          opacity: animation,
+                          child: child,
+                        );
+                      },
+                      child: loginWorkflowTriggered
+                          ? const SizedBox.square(
+                              dimension: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            )
+                          : const Text(
+                              "Continue",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                    )),
                   ),
                   const SizedBox(
                     height: 24,
@@ -300,39 +311,7 @@ class _LoginPageState extends State<LoginPage> {
                   //By continuing, I accept Terms of Conditions and Privacy Policy
                   Align(
                     alignment: Alignment.center,
-                    child: SizedBox(
-                      width: UiSizes().w75,
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: const TextSpan(
-                          text: "By continuing, I accept",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w300,
-                              color: AppColors.lightTextColor,
-                              height: 1.5),
-                          children: [
-                            TextSpan(
-                              text: " Terms of Conditions",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                            TextSpan(
-                              text: " and",
-                            ),
-                            TextSpan(
-                              text: " Privacy Policy",
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    child: SizedBox(width: UiSizes().w75, child: termNCond()),
                   ),
                   const SizedBox(height: 12),
                 ],
