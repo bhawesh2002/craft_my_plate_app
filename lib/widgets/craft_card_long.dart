@@ -12,7 +12,7 @@ class CraftCardLong extends StatelessWidget {
     return ClipRRect(
       clipBehavior: Clip.antiAlias,
       child: Container(
-        height: UiSizes().h22,
+        height: UiSizes().h20,
         decoration: BoxDecoration(
           color: const Color(0xffFDFAEC),
           borderRadius: BorderRadius.circular(20),
@@ -22,8 +22,8 @@ class CraftCardLong extends StatelessWidget {
           return Stack(
             children: [
               Positioned.fill(
-                left: constraints.maxWidth * 0.06,
-                top: constraints.maxHeight * 0.12,
+                left: constraints.maxWidth * 0.3,
+                top: constraints.maxHeight * 0.3,
                 child: Align(
                   alignment: Alignment.center,
                   child: Transform.scale(
@@ -32,7 +32,7 @@ class CraftCardLong extends StatelessWidget {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xffDD8E18)),
                       child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 100, sigmaY: 40),
+                        filter: ImageFilter.blur(sigmaX: 110, sigmaY: 35),
                         blendMode: BlendMode.srcIn,
                         child: const SizedBox.square(
                           dimension: 150,
@@ -117,12 +117,12 @@ class CraftCardLong extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: constraints.maxHeight * 0.15,
-                left: constraints.maxWidth * 0.5,
+                top: constraints.maxHeight * 0.10,
+                left: constraints.maxWidth * 0.44,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Transform.scale(
-                    scale: 1.3,
+                    scale: 1.25,
                     child: Image.asset(
                       fit: BoxFit.contain,
                       AppImages.deliveryBox,
