@@ -51,6 +51,7 @@ class AuthStateController extends GetxController {
         // Attempt to sign up the user if user is not found
         await _signUpWithEmail(email, password);
       } else if (e.code == 'wrong-password') {
+        isLoggedIn.value = false;
         debugPrint("signInWithEmail() Error: Wrong password provided!");
         errorSnackBar(title: "Error", message: "Wrong password provided!");
       } else {
