@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
@@ -9,6 +11,7 @@ import 'package:craft_my_plate_app/widgets/location_widget.dart';
 import 'package:craft_my_plate_app/widgets/meal_box_card.dart';
 import 'package:craft_my_plate_app/widgets/menu_card_large.dart';
 import 'package:craft_my_plate_app/widgets/section_tile.dart';
+import 'package:craft_my_plate_app/widgets/see_all_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -172,17 +175,33 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(height: 20),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: UiSizes().w4),
-                      child: const MenuCardLarge(),
-                    ),
-                    const MenuCardLarge(),
-                    Padding(
-                        padding: EdgeInsets.only(right: UiSizes().w4),
-                        child: const MenuCardLarge()),
-                  ],
+                child: SizedBox(
+                  height: UiSizes().h40,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: UiSizes().h1, horizontal: UiSizes().w4),
+                        child: const SeeAllCard(
+                          primaryColor: Color(0xffE70472),
+                          secondaryColor: Color(0xffFEF1F7),
+                          blurColor: Color(0xffFCC1DD),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(height: 24),
@@ -235,17 +254,33 @@ class _HomePageState extends State<HomePage> {
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.only(left: UiSizes().w4),
-                      child: const MenuCardLarge(),
-                    ),
-                    const MenuCardLarge(),
-                    Padding(
-                        padding: EdgeInsets.only(right: UiSizes().w4),
-                        child: const MenuCardLarge()),
-                  ],
+                child: SizedBox(
+                  height: UiSizes().h40,
+                  child: Row(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: UiSizes().w4),
+                        child: const MenuCardLarge(),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: UiSizes().h1, horizontal: UiSizes().w4),
+                        child: const SeeAllCard(
+                          primaryColor: Color(0xffDD8E18),
+                          secondaryColor: Color(0xffFDFAEC),
+                          blurColor: Color(0xffF6D798),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
