@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/controllers/onboarding_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
@@ -17,6 +18,9 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   final PageController _pageController = PageController();
+
+  final OnboardingController _onboardingController =
+      Get.put(OnboardingController());
 
   double currentIndex = 0;
 
@@ -40,19 +44,19 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     final List<OnboardingCard> onboardingCards = [
       OnboardingCard(
-        svgImgPath: AppImages.onboarding1,
+        lottiePath: AppImages.onboarding2Lottie,
         heading: "Choose & Customize!",
         subHeading:
             "Select a platter, choose and customize menu items and craft a personalized menu for event",
       ),
       OnboardingCard(
-        svgImgPath: AppImages.onboarding2,
+        lottiePath: AppImages.onboarding2Lottie,
         heading: "Order More, Save More!",
         subHeading:
             "Experience culinary artistry like never before with our innovative and exquisite cuisine creations",
       ),
       OnboardingCard(
-        svgImgPath: AppImages.onboarding3,
+        lottiePath: AppImages.onboarding3Lottie,
         heading: "Personal Order Executive",
         subHeading:
             "Embark on a personalized culinary journey with our dedicated one-to-one customer support, ensuring a seamless and satisfying experience every step of the way.",
@@ -140,7 +144,10 @@ class _OnboardingState extends State<Onboarding> {
               GestureDetector(
                 onTap: () {
                   if (currentIndex == onboardingCards.length - 1) {
-                    Get.offNamed(AppRoutes.login);
+                    _onboardingController.completeOnboarding();
+                    if (_onboardingController.onboardingCompleted.value) {
+                      Get.offNamed(AppRoutes.login);
+                    }
                   } else {
                     _pageController.nextPage(
                         duration: const Duration(milliseconds: 300),
