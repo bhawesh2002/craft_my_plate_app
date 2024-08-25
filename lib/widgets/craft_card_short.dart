@@ -42,7 +42,7 @@ class CraftCardShort extends StatelessWidget {
                           BoxDecoration(shape: BoxShape.circle, color: color),
                       child: SizedBox(
                         width: constraints.maxWidth,
-                        height: constraints.maxHeight,
+                        height: constraints.maxHeight * 0.6,
                       ),
                     ),
                   ),
