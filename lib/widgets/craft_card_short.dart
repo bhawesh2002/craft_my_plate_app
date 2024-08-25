@@ -29,21 +29,20 @@ class CraftCardShort extends StatelessWidget {
       child: LayoutBuilder(builder: (context, constraints) {
         return Stack(
           children: [
-            Positioned.fill(
-              // left: 60,
-              top: 130,
+            Positioned(
+              top: constraints.maxHeight * 0.6,
               child: Align(
                 alignment: Alignment.center,
                 child: Transform.scale(
                   scale: 1.4,
-                  child: Container(
-                    decoration:
-                        BoxDecoration(shape: BoxShape.circle, color: color),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 40, sigmaY: 30),
-                      blendMode: BlendMode.srcIn,
-                      child: const SizedBox.square(
-                        dimension: 150,
+                  child: ImageFiltered(
+                    imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 25),
+                    child: Container(
+                      decoration:
+                          BoxDecoration(shape: BoxShape.circle, color: color),
+                      child: SizedBox(
+                        width: constraints.maxWidth,
+                        height: constraints.maxHeight,
                       ),
                     ),
                   ),
