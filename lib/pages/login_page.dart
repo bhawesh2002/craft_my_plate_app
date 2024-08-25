@@ -1,6 +1,7 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:craft_my_plate_app/utils/app_images.dart';
 import 'package:craft_my_plate_app/utils/enums.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
@@ -10,7 +11,9 @@ import 'package:craft_my_plate_app/widgets/password_text_field.dart';
 import 'package:craft_my_plate_app/widgets/term_n_condition_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -159,6 +162,44 @@ class _LoginPageState extends State<LoginPage> {
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(32),
                       bottomRight: Radius.circular(32)),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      MediaQuery.of(context).viewInsets.bottom == 0
+                          ? Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SvgPicture.asset(
+                                  AppImages.logoSVG,
+                                  width: 200,
+                                ),
+                                SizedBox(height: UiSizes().h4),
+                              ],
+                            )
+                          : Text(
+                              "Craft My Plate",
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: GoogleFonts.capriola().fontFamily,
+                                color: AppColors.secondary,
+                              ),
+                            ),
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          "India’s 1st Dynamic Pricing Food Catering App",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            height: 1.5,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
