@@ -76,13 +76,13 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 32),
               SizedBox(
-                height: UiSizes().h20,
+                height: UiSizes().h16,
                 child: PageView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 2,
                   itemBuilder: (context, index) {
                     return const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      padding: EdgeInsets.symmetric(horizontal: 20.0),
                       child: CouponCard(),
                     );
                   },
