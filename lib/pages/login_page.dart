@@ -167,25 +167,39 @@ class _LoginPageState extends State<LoginPage> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      MediaQuery.of(context).viewInsets.bottom == 0
-                          ? Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SvgPicture.asset(
-                                  AppImages.logoSVG,
-                                  width: 200,
-                                ),
-                                SizedBox(height: UiSizes().h4),
-                              ],
-                            )
-                          : Text(
-                              "Craft My Plate",
-                              style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: GoogleFonts.capriola().fontFamily,
-                                color: AppColors.secondary,
-                              ),
+                      AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        switchInCurve: Curves.easeIn,
+                        switchOutCurve: Curves.ease,
+                        transitionBuilder: (child, animation) {
+                          return FadeTransition(
+                            opacity: animation,
+                            child: SizeTransition(
+                              sizeFactor: animation,
+                              child: Center(child: child),
                             ),
+                          );
+                        },
+                        child: MediaQuery.of(context).viewInsets.bottom == 0
+                            ? Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppImages.logoSVG,
+                                    width: 200,
+                                  ),
+                                  SizedBox(height: UiSizes().h4),
+                                ],
+                              )
+                            : Text(
+                                "Craft My Plate",
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontFamily: GoogleFonts.capriola().fontFamily,
+                                  color: AppColors.secondary,
+                                ),
+                              ),
+                      ),
                       const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(
