@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 24),
+              const SizedBox(height: 4),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Text(
@@ -56,24 +56,24 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 12),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [LocationWidget(), HowItWorks()],
                 ),
               ),
               const SizedBox(height: 32),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: SizedBox(
-                  height: UiSizes().h20,
-                  child: PageView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return const CouponCard();
-                    },
-                  ),
+              SizedBox(
+                height: UiSizes().h20,
+                child: PageView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 2,
+                  itemBuilder: (context, index) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.0),
+                      child: CouponCard(),
+                    );
+                  },
                 ),
               ),
               const SizedBox(height: 24),
@@ -88,8 +88,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               const SizedBox(height: 20),
+              //Craft Cards
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Column(
                   children: [
                     const CraftCardLong(),
@@ -104,6 +105,9 @@ class _HomePageState extends State<HomePage> {
                             color: const Color(0xff6318AF),
                             imgPath: AppImages.mealBox,
                             cardBgColor: const Color(0xffFBF7FE),
+                            angle: -0.2,
+                            leftPos: 0.05,
+                            topPos: 0.40,
                           ),
                         ),
                         const SizedBox(width: 12),
@@ -114,10 +118,13 @@ class _HomePageState extends State<HomePage> {
                             color: const Color(0xffE70472),
                             imgPath: AppImages.biryani,
                             cardBgColor: const Color(0xffFBDAEA),
+                            topPos: 0.25,
+                            leftPos: 0.05,
+                            scale: 1.05,
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -142,7 +149,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 24),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: SectionTile(
                   title: "Delivery Box",
                   quantity: "Min 10 - Max 50",
@@ -168,7 +175,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 24),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: SectionTile(
                   title: "Meal Box",
                   quantity: "Min 10",
@@ -202,7 +209,7 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(height: 24),
               const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.0),
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 child: SectionTile(
                   title: "Catering Menus",
                   quantity: "Min 200",
