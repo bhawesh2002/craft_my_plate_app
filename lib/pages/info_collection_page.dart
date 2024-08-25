@@ -21,6 +21,8 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
   final AuthStateController _authStateController =
       Get.find<AuthStateController>();
 
+  bool updateWorkflowTriggered = false;
+
   @override
   void initState() {
     FirebaseAuth.instance.currentUser?.email != null
@@ -104,8 +106,25 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                _authStateController
+              onPressed: () async {
+                setState(() {
+                  updateWorkflowTriggered = true;
+                });
+                if (_nameController.text.isEmpty ||
+                    _emailController.text.isEmpty) {
+                  Get.snackbar(
+                    "Error",
+                    "Please fill all the fields",
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                  setState(() {
+                    updateWorkflowTriggered = false;
+                  });
+                  return;
+                }
+                await _authStateController
                     .updateProfile(_nameController.text, _emailController.text)
                     .then((_) {
                   if (FirebaseAuth.instance.currentUser?.displayName != null &&
@@ -113,7 +132,9 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
                     Get.offAllNamed(AppRoutes.home);
                   }
                 });
-                // _authStateController.signOut();
+                setState(() {
+                  updateWorkflowTriggered = false;
+                });
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: AppColors.buttonPrimaryColor,
@@ -122,16 +143,31 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child: const Center(
-                child: Text(
-                  "Let's Start",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
+              child: Center(
+                  child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 300),
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+                child: updateWorkflowTriggered
+                    ? const SizedBox.square(
+                        dimension: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text(
+                        "Continue",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+              )),
             ),
             const SizedBox(
               height: 24,
