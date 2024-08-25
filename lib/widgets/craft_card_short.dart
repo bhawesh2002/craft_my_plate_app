@@ -9,18 +9,34 @@ class CraftCardShort extends StatelessWidget {
   final String title;
   final Color color;
   final Color cardBgColor;
+
+  /// The top position of the image in the card Defaults to 0.45
+  final double? topPos;
+
+  /// The left position of the image in the card Defaults to 0.10
+  final double? leftPos;
+
+  /// The angle of the image in the card Defaults to 0
+  final double? angle;
+
+  /// The scale of the image in the card Defaults to 1.1
+  final double? scale;
   const CraftCardShort(
       {super.key,
       required this.guestNumber,
       required this.imgPath,
       required this.title,
       required this.color,
-      required this.cardBgColor});
+      required this.cardBgColor,
+      this.topPos,
+      this.leftPos,
+      this.angle,
+      this.scale});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: UiSizes().h22,
+      height: UiSizes().h20,
       decoration: BoxDecoration(
         color: cardBgColor,
         borderRadius: BorderRadius.circular(20),
@@ -34,9 +50,9 @@ class CraftCardShort extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Transform.scale(
-                  scale: 1.4,
+                  scale: 1.1,
                   child: ImageFiltered(
-                    imageFilter: ImageFilter.blur(sigmaX: 40, sigmaY: 25),
+                    imageFilter: ImageFilter.blur(sigmaX: 125, sigmaY: 80),
                     child: Container(
                       decoration:
                           BoxDecoration(shape: BoxShape.circle, color: color),
@@ -104,15 +120,18 @@ class CraftCardShort extends StatelessWidget {
               ),
             ),
             Positioned(
-              top: constraints.maxHeight * 0.35,
-              // left: constraints.maxWidth * 0.5,
+              top: constraints.maxHeight * (topPos ?? 0.45),
+              left: -constraints.maxWidth * (leftPos ?? 0.10),
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: Transform.scale(
-                  scale: 1,
-                  child: Image.asset(
-                    fit: BoxFit.contain,
-                    imgPath,
+                child: Transform.rotate(
+                  angle: angle ?? 0,
+                  child: Transform.scale(
+                    scale: scale ?? 1.1,
+                    child: Image.asset(
+                      fit: BoxFit.contain,
+                      imgPath,
+                    ),
                   ),
                 ),
               ),
