@@ -1,5 +1,4 @@
-import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
-import 'package:craft_my_plate_app/routes/app_routes.dart';
+import 'package:craft_my_plate_app/controllers/splash_controller.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
@@ -10,8 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'dart:math' as math;
 
-import 'package:is_first_run/is_first_run.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -21,8 +18,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  final AuthStateController _authStateController =
-      Get.put(AuthStateController());
+  final SplashController _splashController = Get.put(SplashController());
   late AnimationController _animationController;
 
   late final Animation<double> scale;
@@ -38,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen>
       vsync: this,
       duration: const Duration(seconds: 3),
     );
-    rotate = Tween<double>(begin: 7.01, end: 30).animate(CurvedAnimation(
+    rotate = Tween<double>(begin: 0, end: 30).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.easeInBack));
     scale = Tween<double>(begin: 4, end: 7)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
@@ -50,20 +46,8 @@ class _SplashScreenState extends State<SplashScreen>
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
 
     _animationController.forward().whenComplete(() {
-      Future.delayed(const Duration(seconds: 1), () {
-        // Check if the app is running for the first time
-        IsFirstRun.isFirstRun().then((isFirstRun) {
-          if (isFirstRun) {
-            // If the app is running for the first time, navigate to the onboarding screen
-            Get.offNamed(AppRoutes.onboarding);
-          } else {
-            // If the app is not running for the first time, navigate to the login screen if the user is not logged in
-            _authStateController.isLoggedIn.value
-                ? Get.offNamed(AppRoutes.home)
-                : Get.offNamed(AppRoutes.login);
-          }
-        });
-      });
+      // Redirect to the appropriate screen
+      _splashController.redirect();
     });
     super.initState();
   }
