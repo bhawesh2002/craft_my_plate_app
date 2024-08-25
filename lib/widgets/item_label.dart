@@ -2,8 +2,12 @@ import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class ItemLabel extends StatelessWidget {
+  /// The count of items
   final int count;
-  const ItemLabel({super.key, required this.count});
+
+  /// The label to be displayed after the count
+  final String? label;
+  const ItemLabel({super.key, required this.count, this.label});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class ItemLabel extends StatelessWidget {
         ),
       ),
       child: Text(
-        "$count Items",
+        "$count ${label ?? "Items"}",
         style: const TextStyle(fontSize: 12, color: Colors.white),
       ),
     );
