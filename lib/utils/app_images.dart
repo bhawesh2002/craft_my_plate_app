@@ -29,7 +29,6 @@ class AppImages {
   static String get onboarding1Lottie => _onboarding1Lottie;
   static String get onboarding2Lottie => _onboarding2Lottie;
   static String get onboarding3Lottie => _onboarding3Lottie;
-
   static String get elephantSVG => _elephantSVG;
   static String get cookingSVG => _cookingSVG;
   static String get mealBox => _mealBox;
