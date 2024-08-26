@@ -1,5 +1,6 @@
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:craft_my_plate_app/widgets/cmp_bottom_app_bar.dart';
 import 'package:craft_my_plate_app/widgets/coupon_card.dart';
@@ -304,7 +305,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(AppImages.arrowHeadSVG),
+                        SvgPicture.asset(AppSvgs.arrowHeadSVG),
                         SizedBox(width: uiSizes.w2),
                         Text(
                           "You Customize, We Cater!",
@@ -318,7 +319,7 @@ class _HomePageState extends State<HomePage> {
                         // Rotated arrow head by 180 degrees
                         Transform.rotate(
                             angle: 3.14 / 1,
-                            child: SvgPicture.asset(AppImages.arrowHeadSVG))
+                            child: SvgPicture.asset(AppSvgs.arrowHeadSVG))
                       ],
                     ),
                   ),
