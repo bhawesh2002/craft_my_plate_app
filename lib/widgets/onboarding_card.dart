@@ -21,7 +21,7 @@ class OnboardingCard extends StatelessWidget {
         children: [
           Expanded(
             child: Transform.scale(
-                scale: 1, child: Center(child: Lottie.asset(lottiePath))),
+                scale: 1.2, child: Center(child: Lottie.asset(lottiePath))),
           ),
           Text(
             heading,
