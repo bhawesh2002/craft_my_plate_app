@@ -1,3 +1,4 @@
+import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -13,30 +14,31 @@ class OnboardingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Transform.scale(
-            scale: 3,
-            child: SizedBox(
-                width: 250,
-                height: 250,
-                child: Center(child: Lottie.asset(lottiePath)))),
-        const SizedBox(height: 20),
-        Text(
-          heading,
-          style: const TextStyle(fontSize: 22),
-        ),
-        Text(
-          subHeading,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w300,
+    return LayoutBuilder(builder: (context, constraints) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: Transform.scale(
+                scale: 1, child: Center(child: Lottie.asset(lottiePath))),
           ),
-        )
-      ],
-    );
+          Text(
+            heading,
+            style: TextStyle(fontSize: constraints.maxWidth * 0.06),
+          ),
+          SizedBox(height: constraints.maxHeight * 0.03),
+          Text(
+            subHeading,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: constraints.maxWidth * 0.045,
+              color: AppColors.lightTextColor,
+              fontWeight: FontWeight.w300,
+            ),
+          )
+        ],
+      );
+    });
   }
 }
