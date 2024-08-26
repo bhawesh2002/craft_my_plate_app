@@ -149,6 +149,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final UiSizes uiSizes = UiSizes();
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -186,7 +187,7 @@ class _LoginPageState extends State<LoginPage> {
                                 children: [
                                   SvgPicture.asset(
                                     AppImages.logoSVG,
-                                    width: UiSizes().w45,
+                                    width: uiSizes.w40,
                                   ),
                                   SizedBox(height: UiSizes().h4),
                                 ],
@@ -194,20 +195,20 @@ class _LoginPageState extends State<LoginPage> {
                             : Text(
                                 "Craft My Plate",
                                 style: TextStyle(
-                                  fontSize: 24,
+                                  fontSize: uiSizes.responsiveFontSize(22),
                                   fontFamily: GoogleFonts.capriola().fontFamily,
                                   color: AppColors.secondary,
                                 ),
                               ),
                       ),
-                      const Padding(
-                        padding: EdgeInsets.all(8.0),
+                      Padding(
+                        padding: EdgeInsets.all(uiSizes.w4),
                         child: Text(
                           "India’s 1st Dynamic Pricing Food Catering App",
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: uiSizes.responsiveFontSize(18),
                             height: 1.5,
                           ),
                         ),
@@ -237,8 +238,8 @@ class _LoginPageState extends State<LoginPage> {
                   },
                 ),
 
-                const SizedBox(
-                  width: 16,
+                SizedBox(
+                  width: uiSizes.w4,
                 ),
                 // Email Button
                 //Clicking on this button will change the authType to email
@@ -257,7 +258,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 22),
+            SizedBox(height: uiSizes.h3),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 28),
               child: Column(
@@ -267,7 +268,8 @@ class _LoginPageState extends State<LoginPage> {
                     "Log In or Sign Up with Craft My Plate",
                     style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
                   ),
-                  const SizedBox(height: 20),
+                  SizedBox(height: uiSizes.h2),
+
                   // Phone or Email Field based on authType
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 500),
@@ -318,7 +320,8 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 24),
+                  SizedBox(height: uiSizes.h2),
+
                   // Continue Button
                   ElevatedButton(
                     onPressed: () async {
@@ -360,13 +363,12 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                     )),
                   ),
-                  const SizedBox(
-                    height: 24,
-                  ),
+                  SizedBox(height: uiSizes.h2),
+
                   //By continuing, I accept Terms of Conditions and Privacy Policy
                   Align(
                     alignment: Alignment.center,
-                    child: SizedBox(width: UiSizes().w75, child: termNCond()),
+                    child: SizedBox(width: uiSizes.w85, child: termNCond()),
                   ),
                   const SizedBox(height: 12),
                 ],
