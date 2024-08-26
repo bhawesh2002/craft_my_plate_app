@@ -1,9 +1,11 @@
+import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_icons.dart';
 import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 class CmpBottomAppBar extends StatefulWidget {
   const CmpBottomAppBar({super.key});
@@ -33,18 +35,25 @@ class _CmpBottomAppBarState extends State<CmpBottomAppBar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(width: uiSizes.w4),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SvgPicture.asset(AppIcons.userCircle),
-              Text(
-                "Profile",
-                style: TextStyle(
-                  fontSize: uiSizes.responsiveFontSize(12),
-                  color: AppColors.lightTextColor,
-                ),
-              )
-            ],
+          GestureDetector(
+            onTap: () async {
+              // Logout the user when profile icon is tapped
+              await Get.put(AuthStateController())
+                  .signOut(redirectToLogin: true);
+            },
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SvgPicture.asset(AppIcons.userCircle),
+                Text(
+                  "Profile",
+                  style: TextStyle(
+                    fontSize: uiSizes.responsiveFontSize(12),
+                    color: AppColors.lightTextColor,
+                  ),
+                )
+              ],
+            ),
           ),
           SizedBox(width: uiSizes.w6),
           Transform.scale(
