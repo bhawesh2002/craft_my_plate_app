@@ -1,6 +1,7 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
+import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -112,17 +113,20 @@ class _InfoCollectionPageState extends State<InfoCollectionPage> {
                 });
                 if (_nameController.text.isEmpty ||
                     _emailController.text.isEmpty) {
-                  Get.snackbar(
-                    "Error",
-                    "Please fill all the fields",
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.red,
-                    colorText: Colors.white,
-                  );
+                  errorSnackBar(
+                      title: "Fields Cannot Be Empty",
+                      message: "Please fill in your Name and Email Address");
                   setState(() {
                     updateWorkflowTriggered = false;
                   });
                   return;
+                } else if (!RegExp(
+                        r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$")
+                    .hasMatch(_emailController.text.trim())) {
+                  errorSnackBar(
+                      title: "Invalid Email",
+                      message:
+                          "Email is badly formatter please correct the email");
                 }
                 await _authStateController
                     .updateProfile(_nameController.text, _emailController.text)
