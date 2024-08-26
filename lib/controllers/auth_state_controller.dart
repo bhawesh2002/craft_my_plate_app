@@ -16,6 +16,8 @@ class AuthStateController extends GetxController {
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
+  RxBool timedOut = false.obs;
+
   @override
   void onInit() {
     checkLoginStatus();
@@ -89,7 +91,8 @@ class AuthStateController extends GetxController {
     }
   }
 
-  Future<void> sendOtp(String phoneNumber) async {
+  Future<void> sendOtp(String phoneNumber,
+      {bool redrictToVerification = true}) async {
     try {
       otpSent.value = false;
       isVerified.value = false;
@@ -119,19 +122,24 @@ class AuthStateController extends GetxController {
         codeSent: (String verificationId, int? resendToken) {
           _verificationIdStr.value = verificationId;
           otpSent.value = true;
+          timedOut.value = false;
           infoSnackBar(
               title: "Otp Sent Successfully",
               message: "We have sent an OTP to $phoneNumber");
-
-          Get.toNamed(AppRoutes.verification,
-              arguments: phoneNumber.replaceRange(0, 3, ''));
+          redrictToVerification == true
+              ? Get.toNamed(AppRoutes.verification,
+                  arguments: phoneNumber.replaceRange(0, 3, ''))
+              : null;
 
           debugPrint("sendOtp(): Code sent to $phoneNumber");
         },
         codeAutoRetrievalTimeout: (String verificationId) {
+          timedOut.value = true;
           _verificationIdStr.value = verificationId;
+
           otpSent.value = false;
           debugPrint("sendOtp(): Auto retrieval timeout");
+          errorSnackBar(title: "TimeOut", message: "Please Request A New OTP");
         },
       );
     } catch (e) {
