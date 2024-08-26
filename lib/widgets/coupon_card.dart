@@ -1,5 +1,6 @@
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -9,15 +10,18 @@ class CouponCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final uiSizes = UiSizes();
+    uiSizes.init(context);
+
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(22),
         gradient: AppColors.primaryGradient,
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.1),
-            blurRadius: 4,
-            offset: const Offset(0, 1),
+            blurRadius: uiSizes.w4,
+            offset: Offset(0, uiSizes.h1),
             spreadRadius: 0,
           )
         ],
@@ -28,45 +32,52 @@ class CouponCard extends StatelessWidget {
           return Row(
             children: [
               Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                padding: EdgeInsets.symmetric(
+                  vertical: constraints.maxHeight * 0.05,
+                  horizontal: constraints.maxWidth * 0.04,
+                ),
+                child: Wrap(
                   children: [
-                    const SizedBox(
-                      // width: constraints.maxWidth * 0.6,
-                      child: Text(
-                        "Enjoy your first\norder, the taste of\nour delicious food!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: constraints.maxHeight * 0.05,
-                    ),
-                    DottedBorder(
-                      strokeWidth: 2,
-                      color: const Color(0xff7B7B7B),
-                      dashPattern: const [8, 4],
-                      child: Container(
-                        // width: constraints.maxWidth * 0.4,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                        decoration: const BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        child: const Text(
-                          "FIRSTPLATE01",
-                          style: TextStyle(
-                            color: AppColors.promoCodeColor,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          child: Text(
+                            "Enjoy your first\norder, the taste of\nour delicious food!",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 0.038 * constraints.maxWidth,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
                         ),
-                      ),
+                        SizedBox(
+                          height: constraints.maxHeight * 0.05,
+                        ),
+                        DottedBorder(
+                          strokeWidth: 2,
+                          color: const Color(0xff7B7B7B),
+                          dashPattern: const [8, 4],
+                          child: Container(
+                            padding: EdgeInsets.symmetric(
+                              horizontal: constraints.maxWidth * 0.04,
+                              vertical: constraints.maxHeight * 0.06,
+                            ),
+                            decoration: const BoxDecoration(
+                              color: Colors.transparent,
+                            ),
+                            child: Text(
+                              "FIRSTPLATE01",
+                              style: TextStyle(
+                                color: AppColors.promoCodeColor,
+                                fontSize: 0.03 * constraints.maxWidth,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -76,7 +87,7 @@ class CouponCard extends StatelessWidget {
                   children: [
                     Positioned.fill(
                       top: constraints.maxHeight * 0.15,
-                      right: constraints.maxWidth * 0.05,
+                      right: constraints.maxWidth * 0.04,
                       child: Align(
                         alignment: Alignment.centerRight,
                         child: Transform.scale(

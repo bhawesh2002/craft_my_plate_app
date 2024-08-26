@@ -8,17 +8,20 @@ class SeeAllCard extends StatelessWidget {
   final Color secondaryColor;
   final Color blurColor;
   final double? width;
+  final double? height;
   const SeeAllCard(
       {super.key,
       required this.primaryColor,
       required this.blurColor,
       required this.secondaryColor,
-      this.width});
+      this.width,
+      this.height});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width ?? UiSizes().w45,
+      height: height ?? UiSizes().h40,
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
           color: secondaryColor, borderRadius: BorderRadius.circular(18)),

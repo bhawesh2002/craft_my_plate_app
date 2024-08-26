@@ -1,4 +1,5 @@
 import 'package:craft_my_plate_app/utils/app_icons.dart';
+import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,15 +8,18 @@ class HowItWorks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UiSizes uiSizes = UiSizes();
     return Column(
       children: [
         SvgPicture.asset(
           AppIcons.playCircle,
         ),
-        const SizedBox(height: 4),
-        const Text(
+        SizedBox(height: uiSizes.w2),
+        Text(
           "How it works?",
-          style: TextStyle(fontSize: 10, fontWeight: FontWeight.w300),
+          style: TextStyle(
+              fontSize: uiSizes.responsiveFontSize(10),
+              fontWeight: FontWeight.w300),
         )
       ],
     );

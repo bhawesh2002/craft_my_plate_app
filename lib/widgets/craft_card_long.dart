@@ -12,7 +12,7 @@ class CraftCardLong extends StatelessWidget {
     return ClipRRect(
       clipBehavior: Clip.antiAlias,
       child: Container(
-        height: UiSizes().h20,
+        height: UiSizes().h18 + 10,
         decoration: BoxDecoration(
           color: const Color(0xffFDFAEC),
           borderRadius: BorderRadius.circular(20),
@@ -28,7 +28,7 @@ class CraftCardLong extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.center,
                   child: Transform.scale(
-                    scale: 1.4,
+                    scale: 1.2,
                     child: Container(
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xffDD8E18)),
@@ -54,32 +54,26 @@ class CraftCardLong extends StatelessWidget {
                       Text(
                         "Delivery Box",
                         style: TextStyle(
-                            fontSize: constraints.maxWidth *
-                                0.05, // Example font size
+                            fontSize: constraints.maxWidth * 0.045,
                             color: const Color(0xff242628)),
                       ),
-                      SizedBox(
-                          height:
-                              constraints.maxHeight * 0.02), // Example spacing
+                      SizedBox(height: constraints.maxHeight * 0.02),
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
                             Icons.person,
                             color: const Color(0xff935A10),
-                            size: constraints.maxWidth *
-                                0.04, // Example icon size
+                            size: constraints.maxWidth * 0.04,
                           ),
                           SizedBox(
-                            width:
-                                constraints.maxWidth * 0.005, // Example spacing
+                            width: constraints.maxWidth * 0.005,
                           ),
                           Text(
                             "Min 10 - Max 120",
                             style: TextStyle(
                               color: const Color(0xff935A10),
-                              fontSize: constraints.maxWidth *
-                                  0.03, // Example font size
+                              fontSize: constraints.maxWidth * 0.03,
                             ),
                           )
                         ],
@@ -104,9 +98,8 @@ class CraftCardLong extends StatelessWidget {
                       ),
                       backgroundColor: const Color(0xffDD8E18),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                            constraints.maxWidth *
-                                0.09), // Example border radius
+                        borderRadius:
+                            BorderRadius.circular(constraints.maxWidth * 0.09),
                       ),
                     ),
                     child: Row(
@@ -116,19 +109,15 @@ class CraftCardLong extends StatelessWidget {
                           "See All",
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: constraints.maxWidth *
-                                0.035, // Example font size
+                            fontSize: constraints.maxWidth * 0.035,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
-                        SizedBox(
-                            width: constraints.maxWidth *
-                                0.015), // Example spacing
+                        SizedBox(width: constraints.maxWidth * 0.015),
                         Icon(
                           Icons.arrow_forward,
                           color: Colors.white,
-                          size:
-                              constraints.maxWidth * 0.04, // Example icon size
+                          size: constraints.maxWidth * 0.04,
                         )
                       ],
                     ),
@@ -136,12 +125,12 @@ class CraftCardLong extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: constraints.maxHeight * 0.10,
-                left: constraints.maxWidth * 0.44,
+                top: constraints.maxHeight * 0.05,
+                left: constraints.maxWidth * 0.40,
                 child: Align(
                   alignment: Alignment.centerRight,
                   child: Transform.scale(
-                    scale: 1.25,
+                    scale: 1.10,
                     child: Image.asset(
                       fit: BoxFit.contain,
                       AppImages.deliveryBox,

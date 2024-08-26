@@ -36,7 +36,7 @@ class CraftCardShort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: UiSizes().h20,
+      height: UiSizes().h22,
       decoration: BoxDecoration(
         color: cardBgColor,
         borderRadius: BorderRadius.circular(20),
@@ -66,53 +66,62 @@ class CraftCardShort extends StatelessWidget {
               ),
             ),
             Positioned.fill(
-              top: 12,
-              child: Align(
-                alignment: Alignment.topRight,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: color,
-                      padding: const EdgeInsets.all(6),
-                      shape: const CircleBorder()),
-                  child: const Icon(
-                    Icons.arrow_forward,
-                    size: 16,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-            Positioned.fill(
-              top: constraints.maxHeight * 0.06,
+              top: constraints.maxHeight * 0.08,
               left: constraints.maxWidth * 0.08,
+              right: constraints.maxWidth * 0.05,
               child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                alignment: Alignment.topCenter,
+                child: Wrap(
                   children: [
-                    Text(
-                      title,
-                      style: const TextStyle(
-                          fontSize: 16, color: Color(0xff242628)),
-                    ),
-                    const SizedBox(height: 4),
                     Row(
-                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.person,
-                          color: color,
-                          size: 14,
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              title,
+                              style: TextStyle(
+                                  fontSize: constraints.maxHeight * 0.08,
+                                  color: const Color(0xff242628)),
+                            ),
+                            SizedBox(height: constraints.maxHeight * 0.02),
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(
+                                  Icons.person,
+                                  color: color,
+                                  size: constraints.maxHeight * 0.07,
+                                ),
+                                SizedBox(
+                                  width: constraints.maxWidth * 0.01,
+                                ),
+                                Text(
+                                  "Min $guestNumber Guests",
+                                  style: TextStyle(
+                                      color: color,
+                                      fontSize: constraints.maxHeight * 0.06,
+                                      letterSpacing: -0.4),
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 2,
+                        const Expanded(child: SizedBox()),
+                        Container(
+                          padding: EdgeInsets.all(constraints.maxHeight * 0.05),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: color,
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward,
+                            size: constraints.maxHeight * 0.08,
+                            color: Colors.white,
+                          ),
                         ),
-                        Text(
-                          "Min $guestNumber Guests",
-                          style: TextStyle(
-                              color: color, fontSize: 12, letterSpacing: -0.4),
-                        )
                       ],
                     ),
                   ],
