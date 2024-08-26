@@ -1,7 +1,7 @@
 import 'package:craft_my_plate_app/controllers/auth_state_controller.dart';
 import 'package:craft_my_plate_app/routes/app_routes.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
-import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/enums.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:craft_my_plate_app/widgets/app_snackbars.dart';
@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   SvgPicture.asset(
-                                    AppImages.logoSVG,
+                                    AppSvgs.logoSVG,
                                     width: uiSizes.w40,
                                   ),
                                   SizedBox(height: UiSizes().h4),
