@@ -26,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
   final AuthStateController _authStateController =
       Get.put(AuthStateController());
 
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _phoneController =
+      TextEditingController(text: "9689832375");
   final FocusNode _phoneFocusNode = FocusNode();
 
   final TextEditingController _emailController = TextEditingController();
@@ -39,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
   bool isEmailValid = true;
   bool isPassValid = true;
 
-  bool loginWorkflowTriggered = false;
+  bool loginWorkflowTriggeredPhone = false;
+  bool loginWorkflowTriggeredEmail = false;
 
   @override
   void initState() {
@@ -51,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
     if (_phoneController.text.trim().length != 10) {
       setState(() {
         isPhoneValid = false;
-        loginWorkflowTriggered = false;
+        loginWorkflowTriggeredPhone = false;
       });
       errorSnackBar(
           title: "Enter Valid Phone Number",
@@ -71,7 +73,7 @@ class _LoginPageState extends State<LoginPage> {
         .hasMatch(_emailController.text.trim())) {
       setState(() {
         isEmailValid = false;
-        loginWorkflowTriggered = false;
+        loginWorkflowTriggeredEmail = false;
       });
       errorSnackBar(
           title: "Enter Valid Email",
@@ -92,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
         .hasMatch(_passController.text.trim())) {
       setState(() {
         isPassValid = false;
-        loginWorkflowTriggered = false;
+        loginWorkflowTriggeredEmail = false;
       });
       errorSnackBar(
           title: 'Enter Valid Password',
@@ -112,18 +114,29 @@ class _LoginPageState extends State<LoginPage> {
     // if phone is selected, validate phone number
     if (authType == AuthType.phone) {
       if (!validatePhoneNumber()) return;
-      Future.delayed(const Duration(seconds: 2), () {
-        setState(() {
-          loginWorkflowTriggered = false;
-        });
-      });
-      await _authStateController.sendOtp("+91${_phoneController.text.trim()}");
       setState(() {
-        loginWorkflowTriggered = false;
+        loginWorkflowTriggeredPhone = true;
+        debugPrint(
+            "Login Wrokflow by Phone value: $loginWorkflowTriggeredPhone");
+      });
+      Future.delayed(const Duration(seconds: 2), () async {
+        await _authStateController
+            .sendOtp("+91${_phoneController.text.trim()}");
+      }).whenComplete(() {
+        setState(() {
+          if (_authStateController.otpSent.value == true) {
+            loginWorkflowTriggeredPhone = false;
+          }
+          debugPrint(
+              "Login Wrokflow by Phone value: $loginWorkflowTriggeredPhone");
+        });
       });
     }
     // if email is selected, validate email and password
     else if (authType == AuthType.email) {
+      setState(() {
+        loginWorkflowTriggeredEmail = true;
+      });
       if (!validateEmail() || !validatePassword()) return;
       await _authStateController
           .signInWithEmail(
@@ -143,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
       });
     }
     setState(() {
-      loginWorkflowTriggered = false;
+      loginWorkflowTriggeredEmail = false;
     });
   }
 
@@ -325,9 +338,6 @@ class _LoginPageState extends State<LoginPage> {
                   // Continue Button
                   ElevatedButton(
                     onPressed: () async {
-                      setState(() {
-                        loginWorkflowTriggered = true;
-                      });
                       await handleLogin();
                     },
                     style: ElevatedButton.styleFrom(
@@ -346,7 +356,8 @@ class _LoginPageState extends State<LoginPage> {
                           child: child,
                         );
                       },
-                      child: loginWorkflowTriggered
+                      child: loginWorkflowTriggeredPhone ||
+                              loginWorkflowTriggeredEmail
                           ? const SizedBox.square(
                               dimension: 20,
                               child: CircularProgressIndicator(
