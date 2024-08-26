@@ -185,7 +185,9 @@ class _OtpVerificationState extends State<OtpVerification> {
                 const SizedBox(width: 6),
                 Obx(
                   () => GestureDetector(
-                    onTap: _authStateController.timedOut.value == true
+                    // if the otp is not verified and the timeout is true, then the resend button will be enabled
+                    onTap: _authStateController.timedOut.value == true &&
+                            otpVerified == false
                         ? () async {
                             await _authStateController.sendOtp(
                                 "+91$phoneNumber",
