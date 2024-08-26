@@ -10,13 +10,14 @@ import 'package:get/get.dart';
 class AppPages {
   static final List<GetPage> pages = [
     GetPage(
-      name: AppRoutes.splash,
-      page: () => const SplashScreen(),
-    ),
+        name: AppRoutes.splash,
+        page: () => const SplashScreen(),
+        transition: Transition.fade),
     GetPage(
         name: AppRoutes.home,
         page: () => const HomePage(),
-        transition: Transition.fade),
+        transition: Transition.fade,
+        transitionDuration: const Duration(seconds: 1, milliseconds: 500)),
     GetPage(
         name: AppRoutes.onboarding,
         page: () => const Onboarding(),
