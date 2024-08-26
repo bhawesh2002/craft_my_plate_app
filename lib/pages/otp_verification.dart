@@ -19,6 +19,8 @@ class _OtpVerificationState extends State<OtpVerification> {
   final AuthStateController _authStateController =
       Get.find<AuthStateController>();
   bool otpVerified = false;
+
+  final String phoneNumber = Get.arguments as String;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +59,7 @@ class _OtpVerificationState extends State<OtpVerification> {
               children: [
                 Text(
                   Get.arguments != null
-                      ? "+91-${((Get.arguments as String).replaceRange(0, 6, "XXXXXX"))}"
+                      ? "+91-${(phoneNumber.replaceRange(0, 6, "XXXXXX"))}"
                       : "+91-XXXXXXXXXX",
                   style: const TextStyle(
                       fontSize: 16, fontWeight: FontWeight.w500, height: 2.4),
@@ -169,10 +171,10 @@ class _OtpVerificationState extends State<OtpVerification> {
             const SizedBox(
               height: 24,
             ),
-            const Row(
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                const Text(
                   "Didn’t receive code?",
                   style: TextStyle(
                     fontSize: 16,
@@ -180,15 +182,28 @@ class _OtpVerificationState extends State<OtpVerification> {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                SizedBox(width: 6),
-                Text(
-                  "Resend Again.",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: AppColors.primary,
-                    fontWeight: FontWeight.w400,
+                const SizedBox(width: 6),
+                Obx(
+                  () => GestureDetector(
+                    onTap: _authStateController.timedOut.value == true
+                        ? () async {
+                            await _authStateController.sendOtp(
+                                "+91$phoneNumber",
+                                redrictToVerification: false);
+                          }
+                        : null,
+                    child: Text(
+                      "Resend Again.",
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: _authStateController.timedOut.value == true
+                            ? AppColors.primary
+                            : AppColors.lightTextColor.withOpacity(0.6),
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           ],
