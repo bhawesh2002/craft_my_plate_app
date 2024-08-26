@@ -1,6 +1,6 @@
 import 'package:craft_my_plate_app/controllers/splash_controller.dart';
 import 'package:craft_my_plate_app/utils/app_colors.dart';
-import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -42,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
     opacity = Tween<double>(begin: 1, end: 0).animate(CurvedAnimation(
         parent: _animationController, curve: Curves.easeInOutCubic));
-    topPosition = Tween<double>(begin: UiSizes().h50, end: UiSizes().h28)
+    topPosition = Tween<double>(begin: UiSizes().h50, end: UiSizes().h30)
         .animate(CurvedAnimation(parent: _animationController, curve: curve));
 
     _animationController.forward().whenComplete(() {
@@ -72,7 +72,7 @@ class _SplashScreenState extends State<SplashScreen>
                   angle: rotate.value * (math.pi / 180),
                   child: Transform.scale(
                     scale: scale.value,
-                    child: SvgPicture.asset(fit: BoxFit.none, AppImages.bgSVG),
+                    child: SvgPicture.asset(fit: BoxFit.none, AppSvgs.bgSVG),
                   ),
                 ),
               ),
@@ -84,7 +84,7 @@ class _SplashScreenState extends State<SplashScreen>
                     scale: logoScale.value,
                     alignment: Alignment.bottomCenter,
                     child: SvgPicture.asset(
-                      AppImages.logoSVG,
+                      AppSvgs.logoSVG,
                     ),
                   ),
                 ),
@@ -98,7 +98,7 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Text(
                       "Welcome",
                       style: TextStyle(
-                        fontSize: 32,
+                        fontSize: UiSizes().responsiveFontSize(30),
                         fontFamily: GoogleFonts.capriola().fontFamily,
                         color: AppColors.secondary,
                       ),
@@ -118,15 +118,18 @@ class _SplashScreenState extends State<SplashScreen>
                         Text(
                           "Craft My Plate",
                           style: TextStyle(
-                            fontSize: 32,
+                            fontSize: UiSizes().responsiveFontSize(30),
                             fontFamily: GoogleFonts.capriola().fontFamily,
                             color: AppColors.secondary,
                           ),
                         ),
+                        SizedBox(
+                          height: UiSizes().h1,
+                        ),
                         Text(
                           "You Customize, We Cater",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: UiSizes().responsiveFontSize(18),
                             fontFamily: GoogleFonts.courgette().fontFamily,
                             color: AppColors.courgetteTextColor,
                           ),
