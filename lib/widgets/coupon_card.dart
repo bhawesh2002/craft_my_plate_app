@@ -1,5 +1,5 @@
 import 'package:craft_my_plate_app/utils/app_colors.dart';
-import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -93,7 +93,7 @@ class CouponCard extends StatelessWidget {
                         child: Transform.scale(
                           scale: 1.2,
                           child: SvgPicture.asset(
-                            AppImages.cookingSVG,
+                            AppSvgs.cookingSVG,
                           ),
                         ),
                       ),
