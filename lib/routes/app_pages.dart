@@ -9,12 +9,29 @@ import 'package:get/get.dart';
 
 class AppPages {
   static final List<GetPage> pages = [
-    GetPage(name: AppRoutes.splash, page: () => const SplashScreen()),
-    GetPage(name: AppRoutes.home, page: () => const HomePage()),
-    GetPage(name: AppRoutes.onboarding, page: () => const Onboarding()),
-    GetPage(name: AppRoutes.login, page: () => const LoginPage()),
-    GetPage(name: AppRoutes.verification, page: () => const OtpVerification()),
     GetPage(
-        name: AppRoutes.infoCollection, page: () => const InfoCollectionPage())
+      name: AppRoutes.splash,
+      page: () => const SplashScreen(),
+    ),
+    GetPage(
+        name: AppRoutes.home,
+        page: () => const HomePage(),
+        transition: Transition.fade),
+    GetPage(
+        name: AppRoutes.onboarding,
+        page: () => const Onboarding(),
+        transition: Transition.fade),
+    GetPage(
+        name: AppRoutes.login,
+        page: () => const LoginPage(),
+        transition: Transition.fade),
+    GetPage(
+        name: AppRoutes.verification,
+        page: () => const OtpVerification(),
+        transition: Transition.fade),
+    GetPage(
+        name: AppRoutes.infoCollection,
+        page: () => const InfoCollectionPage(),
+        transition: Transition.fade)
   ];
 }
