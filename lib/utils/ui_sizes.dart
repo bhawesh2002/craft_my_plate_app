@@ -11,6 +11,10 @@ class UiSizes {
     debugPrint("UiSizes.init(): Width: $_width, Height: $_height");
   }
 
+  double responsiveFontSize(double size, {double scaleFactor = 1.0}) {
+    return size * (_width / 440) * scaleFactor;
+  }
+
   double get width => _width;
   double get height => _height;
 
