@@ -1,6 +1,6 @@
 import 'package:craft_my_plate_app/utils/app_colors.dart';
 import 'package:craft_my_plate_app/utils/app_icons.dart';
-import 'package:craft_my_plate_app/utils/app_images.dart';
+import 'package:craft_my_plate_app/utils/app_svgs.dart';
 import 'package:craft_my_plate_app/utils/ui_sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -48,7 +48,7 @@ class _CmpBottomAppBarState extends State<CmpBottomAppBar> {
           ),
           SizedBox(width: uiSizes.w6),
           Transform.scale(
-              scale: 1.2, child: SvgPicture.asset(AppImages.logoCircleSVG)),
+              scale: 1.2, child: SvgPicture.asset(AppSvgs.logoCircleSVG)),
           SizedBox(width: uiSizes.w6),
           Column(
             mainAxisSize: MainAxisSize.min,
