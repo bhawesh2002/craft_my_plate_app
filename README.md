@@ -8,7 +8,7 @@ https://github.com/user-attachments/assets/b829c71d-9eed-49fc-86d5-4cbd76058e9c
 
 ## Installation
 
-To run SkyScape on your local machine, follow these steps:
+To run CraftMyPlate on your local machine, follow these steps:
 
 1. Clone the repository using the following command:
 
